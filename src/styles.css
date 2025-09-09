@@ -1,0 +1,50 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+.app-root { height: 100vh; display: flex; flex-direction: column; }
+.toolbar { display: flex; gap: 8px; align-items: center; padding: 8px; border-bottom: 1px solid #e5e7eb; background: #fff; }
+.toolbar button { padding: 8px 10px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; font-size: 14px; cursor: pointer; }
+.toolbar .hint { margin-left: auto; font-size: 12px; color: #6b7280; }
+
+.layout { flex: 1; display: grid; grid-template-columns: 240px 1fr 320px; min-height: 0; }
+.panel-left { border-right: 1px solid #e5e7eb; background: #fff; min-width: 0; }
+.panel-right { border-left: 1px solid #e5e7eb; background: #fff; padding: 16px; }
+.panel-title { padding: 16px; font-weight: 600; }
+.canvas { position: relative; background: #f9fafb; height: 100%; min-height: 0; }
+
+.palette-grid { padding: 16px; display: grid; gap: 10px; }
+.palette-item { cursor: grab; border: 1px solid #e5e7eb; border-radius: 12px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.palette-item .dot { width: 8px; height: 8px; border-radius: 999px; }
+.palette-item .label { font-size: 14px; }
+
+.panel-right .muted { font-size: 13px; color: #6b7280; }
+.field { display: grid; gap: 6px; margin-bottom: 12px; }
+.field label { font-size: 12px; color: #6b7280; }
+.field input, .field textarea { width: 100%; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px; font-size: 14px; }
+button.danger { color: #dc2626; border: 1px solid #fecaca; background: #fff; padding: 8px 10px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+
+/* ---- Tablets: slightly narrower side panels ---- */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 200px 1fr 260px; }
+}
+
+/* ---- Hide Properties panel on smaller screens ---- */
+@media (max-width: 900px) {
+  /* Remove the right column and hide the panel */
+  .layout { grid-template-columns: 240px 1fr; }
+  .panel-right { display: none !important; }
+}
+
+/* ---- Phones: palette on top, canvas below; properties still hidden ---- */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;          /* single column */
+    grid-template-rows: 200px 1fr;       /* palette then canvas */
+  }
+  .panel-left {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  /* panel-right stays hidden due to the 900px rule */
+}
